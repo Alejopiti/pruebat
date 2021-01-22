@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "consultar";
+}
+<br />
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<i onclick="MostrarDatosT()" class="btn btn-default">Ingresar datos del trabajado</i>
+<i onclick="Mostrar()" class="btn btn-default">Ingresar datos de nomina</i>
+@using (Ajax.BeginForm("ConsultaD", "Home", null, new AjaxOptions()
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "Resultados",
+
+
+}, new { id = "formconsulta" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="lead">
+        <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
+        <br />
+        <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+    </div>
+}
+<div id="CrearDatosN" hidden="hidden">
+    a.	Periodo Laborado.
+    b.	Horas Total Laboradas.
+    c.	Horas Extras (Diurnas, Nocturnas, Dominical, Festivas).
+    d.	Descuentos de Nómina.
+</div>
+<div id="CrearDatosTrabaja" hidden="hidden">
+    <input placeholder="Tipo de documento" id="txttipodocumento"/>
+    <br />
+    <input placeholder="Documento" id="txtndocumento"/>
+    <br />
+    <input placeholder="Primer apellido" id="txtprimerapellido"/><br />
+    <input placeholder="Segundo apellido" id="txtsegundoapellido"/><br />
+    <input placeholder="Primer nombre" id="txtprimernombre"/><br />
+    <input placeholder="Segundo nombre" id="txtsegundonombre"/><br />
+    <input placeholder="Usuario" id="txtusuariocreacion"/><br />
+    <input placeholder="salario" id="txtsalario"/><br />
+    
+    <i class="btn btn-default" onclick="CrearContrato()">Crear</i>
+    <span id="RespuestaCrearC"></span>
+</div>
+<div id="Resultados">
+
+</div>
+@section Scripts
+{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}
+<script>
+    function Mostrar()
+    {
+        $("#CrearDatosN").show();
+    }
+    function MostrarDatosT()
+    {
+        $("#CrearDatosTrabaja").show();
+    }
+    function CrearContrato()
+    {
+        var url = "@Url.Action("CrearContrato", "Home")";
+        var salario = $("#txtsalario").val();
+        var numerodocumento = $("#txtndocumento").val();
+        var primerapellido = $("#txtprimerapellido").val();
+        var segundoapellido = $("#txtsegundoapellido").val();
+        var primernombre = $("#txtprimernombre").val();
+        var segundonombre = $("#txtsegundonombre").val();
+        var usuariocreacion = $("#txtsegundonombre").val();
+        var data = { salario: salario, numerodocumento: numerodocumento, primerapellido: primerapellido, segundoapellido: segundoapellido, primernombre: primernombre, segundonombre: segundonombre, usuariocreacion: usuariocreacion }
+            $.post(url, data).done(function (data)
+            {
+                if (data.Tipo_Confirmacion)
+            {
+                document.getElementById("txtnbeneficios").value = "";
+                    $("#RespuestaCrearC").removeClass("alert alert-danger").addClass("alert alert-success").slideDown(200);
+            }
+                else
+            {
+                    $("#RespuestaCrearC").removeClass("alert alert-success").addClass("alert alert-danger").slideDown(200);
+            }
+                $("#RespuestaCrearC").html(data.Mensaje);
+            });
+    }
+</script>

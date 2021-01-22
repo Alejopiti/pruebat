@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="pruebatecnicaModelStoreContainer" CdmEntityContainer="pruebatecnicaEntities">
+    <EntitySetMapping Name="arl">
+      <EntityTypeMapping TypeName="pruebatecnicaModel.arl">
+        <MappingFragment StoreEntitySet="arl">
+          <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="idarl" ColumnName="idarl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cargos">
+      <EntityTypeMapping TypeName="pruebatecnicaModel.cargos">
+        <MappingFragment StoreEntitySet="cargos">
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idcargo" ColumnName="idcargo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contratoslaborales">
+      <EntityTypeMapping TypeName="pruebatecnicaModel.contratoslaborales">
+        <MappingFragment StoreEntitySet="contratoslaborales">
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+          <ScalarProperty Name="salario" ColumnName="salario" />
+          <ScalarProperty Name="fechafin" ColumnName="fechafin" />
+          <ScalarProperty Name="fechainicio" ColumnName="fechainicio" />
+          <ScalarProperty Name="segundonombre" ColumnName="segundonombre" />
+          <ScalarProperty Name="primernombre" ColumnName="primernombre" />
+          <ScalarProperty Name="segundoapellido" ColumnName="segundoapellido" />
+          <ScalarProperty Name="primerapellido" ColumnName="primerapellido" />
+          <ScalarProperty Name="numerodocumento" ColumnName="numerodocumento" />
+          <ScalarProperty Name="idtipodocumento" ColumnName="idtipodocumento" />
+          <ScalarProperty Name="idcargo" ColumnName="idcargo" />
+          <ScalarProperty Name="idarl" ColumnName="idarl" />
+          <ScalarProperty Name="idestado" ColumnName="idestado" />
+          <ScalarProperty Name="idcontrato" ColumnName="idcontrato" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="estados">
+      <EntityTypeMapping TypeName="pruebatecnicaModel.estados">
+        <MappingFragment StoreEntitySet="estados">
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idestado" ColumnName="idestado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="novedadesnomina">
+      <EntityTypeMapping TypeName="pruebatecnicaModel.novedadesnomina">
+        <MappingFragment StoreEntitySet="novedadesnomina">
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+          <ScalarProperty Name="descuentos" ColumnName="descuentos" />
+          <ScalarProperty Name="horaextrafestiva" ColumnName="horaextrafestiva" />
+          <ScalarProperty Name="horaextradominical" ColumnName="horaextradominical" />
+          <ScalarProperty Name="horaextranocturna" ColumnName="horaextranocturna" />
+          <ScalarProperty Name="horaextradiurna" ColumnName="horaextradiurna" />
+          <ScalarProperty Name="horaslaboradas" ColumnName="horaslaboradas" />
+          <ScalarProperty Name="periodolaborado" ColumnName="periodolaborado" />
+          <ScalarProperty Name="idnovedadnomina" ColumnName="idnovedadnomina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipodocumento">
+      <EntityTypeMapping TypeName="pruebatecnicaModel.tipodocumento">
+        <MappingFragment StoreEntitySet="tipodocumento">
+          <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+          <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idtipodocumento" ColumnName="idtipodocumento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
