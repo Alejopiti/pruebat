@@ -1,0 +1,60 @@
+﻿@model PruebaTecnica.Controllers.ModelCalculo
+@{ 
+    ViewBag.Title = "Calculo aportes seguridad social";
+}
+<br />
+<h2 class="text-center"> @ViewBag.Title</h2>
+<hr />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Aporte</th>
+        <th>
+            % Empleador
+        </th>
+        <th>
+            Valor $
+        </th>
+        <th>
+            % Trabajador
+        </th>
+        <th>
+            Valor $
+        </th>
+    </tr>
+    <tr>
+        <td>
+            Salud
+        </td>
+        <td>
+            12,5%
+        </td>
+        <td>
+            @String.Format("{0:c0}", Model.PorempleadorSalud)
+        </td>
+        <td>
+            4,0%
+        </td>
+        <td>
+            @String.Format("{0:c0}", Model.PortrabajadorPension)
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            Pension
+        </td>
+        <td>
+            16,0%
+        </td>
+        <td>
+            @String.Format("{0:c0}", Model.PorempleadorPension)
+        </td>
+        <td>
+            4,0%
+        </td>
+        <td>
+            @String.Format("{0:c0}", Model.PortrabajadorPension)
+        </td>
+
+    </tr>
+</table>

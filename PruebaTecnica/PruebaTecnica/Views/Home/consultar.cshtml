@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "consultar";
+}
+<br />
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<i>Mi cedula de prueba 1033773736 y 123456789</i>
+<br />
+@*<i onclick="CrearDatosT()" class="btn btn-default">Ingresar datos del trabajador</i>*@
+<i onclick="MostrarDatosT()" class="btn btn-default">Punto 1</i>
+<i onclick="Mostrar()" class="btn btn-default">Punto 2</i>
+<i onclick="MostrarCalculo()" class="btn btn-default">Punto 3</i>
+<i onclick="MostrarCalculoPago()" class="btn btn-default">Punto 4</i>
+<div id="MostrarDT" hidden="hidden">
+    @using (Ajax.BeginForm("ConsultaD", "Home", null, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Resultados",
+
+
+    }, new { id = "formconsulta" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="lead">
+            <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
+            <br />
+            <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+        </div>
+    }
+    <div id="Resultados">
+
+    </div>
+</div>
+<div id="ConsultarDatosC" hidden="hidden">
+    @using (Ajax.BeginForm("CalcularD", "Home", null, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "ResultadosCalculo",
+
+
+    }, new { id = "formconsulta" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="lead">
+            <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
+            <br />
+            <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+        </div>
+    }
+    <div id="ResultadosCalculo">
+
+    </div>
+</div>
+<div id="ConsultarPagoN" hidden="hidden">
+    @using (Ajax.BeginForm("CalcularP", "Home", null, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "ResultadosCalculoNomina",
+
+
+    }, new { id = "formconsulta" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="lead">
+            <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
+            <br />
+            <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+        </div>
+    }
+    <div id="ResultadosCalculoNomina">
+
+    </div>
+</div>
+<div id="CrearDatosN" hidden="hidden">
+    <input class="form-control" id="txtnumerodocumento" placeholder="Número de documento" />
+    <br/>
+    <input class="form-control" id="txtperiodo" placeholder="Periodo laborado" />
+    <br />
+    <input class="form-control" id="txtthoraslaboras" placeholder="Horas total laboradas" type="number" title="Horas total laboradas"/>
+    <br />
+    <input class="form-control" id="txthextradi" placeholder="Horas extras diurnas"/>    
+    <br />
+    <input class="form-control" id="txthextran" placeholder="Horas extras nocturnas"/>    
+    <br />
+    <input class="form-control" id="txthextrado" placeholder="Horas extras dominicales"/>    
+    <br />
+    <input class="form-control" id="txthextraf" placeholder="Horas extras festivas"/>    
+    <br />
+    <input class="form-control" id="txtdescuentosn" type="number" placeholder="Descuentos de nomina" title="Cuanto es el total de descuentos este periodo"/>
+    <br />
+    <i class="btn btn-default glyphicon glyphicon-floppy-saved" onclick="GuardarN()"> Guardar novedad</i>
+    <div id="RespuestaNovedad">
+
+    </div>
+</div>
+<div id="CrearDatosTrabaja" hidden="hidden">
+    <input placeholder="Tipo de documento" id="txttipodocumento" />
+    <br />
+    <input placeholder="Documento" id="txtndocumento" />
+    <br />
+    <input placeholder="Primer apellido" id="txtprimerapellido" /><br />
+    <input placeholder="Segundo apellido" id="txtsegundoapellido" /><br />
+    <input placeholder="Primer nombre" id="txtprimernombre" /><br />
+    <input placeholder="Segundo nombre" id="txtsegundonombre" /><br />
+    <input placeholder="Usuario" id="txtusuariocreacion" /><br />
+    <input placeholder="salario" id="txtsalario" /><br />
+
+    <i class="btn btn-default" onclick="CrearContrato()">Crear</i>
+
+</div>
+<div id="RespuestaCrearC">
+
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}
+<script>
+
+    function Mostrar()
+    {
+        $("#CrearDatosN").show();
+        $("#MostrarDT").hide();
+        $("#CrearDatosTrabaja").hide();
+        $("#ConsultarDatosC").hide();
+        $("#ConsultarPagoN").hide();
+    }
+    function MostrarDatosT()
+    {
+        $("#MostrarDT").show();
+        $("#CrearDatosN").hide();
+        $("#CrearDatosTrabaja").hide();
+        $("#ConsultarDatosC").hide();
+        $("#ConsultarPagoN").hide();
+    }
+    function CrearDatosT()
+    {
+        $("#CrearDatosTrabaja").show();
+        $("#ConsultarDatosC").hide();
+        $("#ConsultarPagoN").hide();
+        $("#MostrarDT").hide();
+        $("#CrearDatosN").hide();
+    }
+    function MostrarCalculo()
+    {
+        $("#ConsultarDatosC").show();
+        $("#ConsultarPagoN").hide();
+        $("#MostrarDT").hide();
+        $("#CrearDatosN").hide();
+        $("#CrearDatosTrabaja").hide();
+    }
+    function MostrarCalculoPago()
+    {
+        $("#ConsultarPagoN").show();
+        $("#ConsultarDatosC").hide();
+        $("#MostrarDT").hide();
+        $("#CrearDatosN").hide();
+        $("#CrearDatosTrabaja").hide();
+    }
+    function GuardarN()
+    {
+        var url = "@Url.Action("Novedades", "Home")";
+        var Documento = $("#txtnumerodocumento").val();
+        var periodolaborado = $("#txtperiodo").val();
+        var horaslaboradas = $("#txtthoraslaboras").val();
+        var horaextradiurna = $("#txthextradi").val();
+        var horaextranocturna = $("#txthextran").val();
+        var horaextradominical = $("#txthextrado").val();
+        var horaextrafestiva = $("#txthextraf").val();
+        var descuentos = $("#txtdescuentosn").val();
+        var data = { Documento: Documento, periodolaborado: periodolaborado, horaslaboradas: horaslaboradas, horaextradiurna: horaextradiurna, horaextranocturna: horaextranocturna, horaextradominical: horaextradominical, horaextrafestiva: horaextrafestiva, descuentos: descuentos }
+            $.post(url, data).done(function (data)
+            {
+                if (data.Tipo_Confirmacion)
+                {
+                    document.getElementById("txtnumerodocumento").value = "";
+                    document.getElementById("txtperiodo").value = "";
+                    document.getElementById("txtthoraslaboras").value = "";
+                    document.getElementById("txthextradi").value = "";
+                    document.getElementById("txthextran").value = "";
+                    document.getElementById("txthextrado").value = "";
+                    document.getElementById("txthextraf").value = "";
+                    document.getElementById("txtdescuentosn").value = "";
+
+            }
+                else
+            {
+                    $("#RespuestaNovedad").removeClass("alert alert-success").addClass("alert alert-danger").slideDown(200);
+            }
+                $("#RespuestaNovedad").html(data.Mensaje);
+            });
+    }
+    function CrearContrato()
+    {
+        var url = "@Url.Action("CrearContrato", "Home")";
+        var TipoD = $("#txttipodocumento").val();
+        var numerodocumento = $("#txtndocumento").val();
+        var primerapellido = $("#txtprimerapellido").val();
+        var segundoapellido = $("#txtsegundoapellido").val();
+        var primernombre = $("#txtprimernombre").val();
+        var segundonombre = $("#txtsegundonombre").val();
+        var usuariocreacion = $("#txtusuariocreacion").val();
+        var salario = $("#txtsalario").val();
+         var data = { salario: salario, numerodocumento: numerodocumento, primerapellido: primerapellido, segundoapellido: segundoapellido, primernombre: primernombre, segundonombre: segundonombre, usuariocreacion: usuariocreacion, TipoD: TipoD }
+            $.post(url, data).done(function (data)
+            {
+                if (data.Tipo_Confirmacion)
+            {
+                    $("#RespuestaCrearC").removeClass("alert alert-danger").addClass("alert alert-success").slideDown(200);
+            }
+                else
+            {
+                    $("#RespuestaCrearC").removeClass("alert alert-success").addClass("alert alert-danger").slideDown(200);
+            }
+                $("#RespuestaCrearC").html(data.Mensaje);
+            });
+    }
+</script>

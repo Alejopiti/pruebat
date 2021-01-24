@@ -1,0 +1,35 @@
+﻿@model PruebaTecnica.Controllers.Modelconsulta
+@{
+    ViewBag.Title = "Consultar datos colaborador";
+}
+<br />
+<h2>@ViewBag.Title</h2>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Tipo de Documento</th>
+        <th>Número de Documento</th>
+        <th>Apellidos y Nombres</th>
+        <th>No. Contrato Laboral</th>
+        <th>Cargo</th>
+        <th>Riesgo Laboral (ARL).</th>
+        <th>Fecha de Inicio Contrato</th>
+        <th>Fecha Final de Contrato (Proyectada si se tiene)</th>
+        <th>Salario</th>
+    </tr>
+    <tr>
+        <td>@Model.TipoD</td>
+        <td>@Model.NumeroD</td>
+        <td>@Model.NombreCompleto</td>
+        <td>@Model.Ncontrato</td>
+        <td>@Model.Cargo</td>
+        <td>@Model.RiesgoL</td>
+        <td>@Model.FechaIniC</td>
+        <td>@Model.FechaFinC</td>
+        <td>@String.Format("{0:c0}", Model.salario)</td>
+    </tr>
+
+</table>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

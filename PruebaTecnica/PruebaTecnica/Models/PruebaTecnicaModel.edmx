@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="pruebatecnicaModel.Store" Provider="Npgsql" ProviderManifestToken="9.6.14" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="arl">
+          <Key>
+            <PropertyRef Name="idarl" />
+          </Key>
+          <Property Name="idarl" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="valor" Type="numeric" Precision="6" Scale="0" />
+          <Property Name="usuariocreacion" Type="varchar" MaxLength="20" />
+          <Property Name="fechacreacion" Type="timestamp" />
+          <Property Name="habilitado" Type="bool" />
+        </EntityType>
+        <EntityType Name="cargos">
+          <Key>
+            <PropertyRef Name="idcargo" />
+          </Key>
+          <Property Name="idcargo" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="usuariocreacion" Type="varchar" MaxLength="20" />
+          <Property Name="fechacreacion" Type="timestamp" />
+        </EntityType>
+        <EntityType Name="contratoslaborales">
+          <Key>
+            <PropertyRef Name="idcontrato" />
+          </Key>
+          <Property Name="idcontrato" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idestado" Type="int4" />
+          <Property Name="idarl" Type="int4" />
+          <Property Name="idcargo" Type="int4" />
+          <Property Name="idtipodocumento" Type="int4" />
+          <Property Name="numerodocumento" Type="numeric" Precision="16" Scale="0" />
+          <Property Name="primerapellido" Type="varchar" MaxLength="20" />
+          <Property Name="segundoapellido" Type="varchar" MaxLength="20" />
+          <Property Name="primernombre" Type="varchar" MaxLength="20" />
+          <Property Name="segundonombre" Type="varchar" MaxLength="20" />
+          <Property Name="fechainicio" Type="date" />
+          <Property Name="fechafin" Type="date" />
+          <Property Name="salario" Type="numeric" Precision="12" Scale="0" />
+          <Property Name="usuariocreacion" Type="varchar" MaxLength="20" />
+          <Property Name="fechacreacion" Type="timestamp" />
+        </EntityType>
+        <EntityType Name="estados">
+          <Key>
+            <PropertyRef Name="idestado" />
+          </Key>
+          <Property Name="idestado" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="usuariocreacion" Type="varchar" MaxLength="20" />
+          <Property Name="fechacreacion" Type="timestamp" />
+        </EntityType>
+        <EntityType Name="novedadesnomina">
+          <Key>
+            <PropertyRef Name="idnovedadnomina" />
+          </Key>
+          <Property Name="idnovedadnomina" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="periodolaborado" Type="varchar" MaxLength="20" />
+          <Property Name="horaslaboradas" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="horaextradiurna" Type="numeric" Precision="12" Scale="0" />
+          <Property Name="horaextranocturna" Type="numeric" Precision="12" Scale="0" />
+          <Property Name="horaextradominical" Type="numeric" Precision="12" Scale="0" />
+          <Property Name="horaextrafestiva" Type="numeric" Precision="12" Scale="0" />
+          <Property Name="descuentos" Type="numeric" Precision="12" Scale="0" />
+          <Property Name="usuariocreacion" Type="varchar" MaxLength="20" />
+          <Property Name="fechacreacion" Type="timestamp" />
+        </EntityType>
+        <EntityType Name="tipodocumento">
+          <Key>
+            <PropertyRef Name="idtipodocumento" />
+          </Key>
+          <Property Name="idtipodocumento" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="usuariocreacion" Type="varchar" MaxLength="20" />
+          <Property Name="fechacreacion" Type="timestamp" />
+        </EntityType>
+        <Association Name="contratoslaborales_fk">
+          <End Role="estados" Type="Self.estados" Multiplicity="0..1" />
+          <End Role="contratoslaborales" Type="Self.contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estados">
+              <PropertyRef Name="idestado" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idestado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contratoslaborales_fk1">
+          <End Role="arl" Type="Self.arl" Multiplicity="0..1" />
+          <End Role="contratoslaborales" Type="Self.contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="arl">
+              <PropertyRef Name="idarl" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idarl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contratoslaborales_fk2">
+          <End Role="cargos" Type="Self.cargos" Multiplicity="0..1" />
+          <End Role="contratoslaborales" Type="Self.contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cargos">
+              <PropertyRef Name="idcargo" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idcargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contratoslaborales_fk3">
+          <End Role="tipodocumento" Type="Self.tipodocumento" Multiplicity="0..1" />
+          <End Role="contratoslaborales" Type="Self.contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipodocumento">
+              <PropertyRef Name="idtipodocumento" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idtipodocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pruebatecnicaModelStoreContainer">
+          <EntitySet Name="arl" EntityType="Self.arl" Schema="public" store:Type="Tables" />
+          <EntitySet Name="cargos" EntityType="Self.cargos" Schema="public" store:Type="Tables" />
+          <EntitySet Name="contratoslaborales" EntityType="Self.contratoslaborales" Schema="public" store:Type="Tables" />
+          <EntitySet Name="estados" EntityType="Self.estados" Schema="public" store:Type="Tables" />
+          <EntitySet Name="novedadesnomina" EntityType="Self.novedadesnomina" Schema="public" store:Type="Tables" />
+          <EntitySet Name="tipodocumento" EntityType="Self.tipodocumento" Schema="public" store:Type="Tables" />
+          <AssociationSet Name="contratoslaborales_fk" Association="Self.contratoslaborales_fk">
+            <End Role="estados" EntitySet="estados" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+          <AssociationSet Name="contratoslaborales_fk1" Association="Self.contratoslaborales_fk1">
+            <End Role="arl" EntitySet="arl" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+          <AssociationSet Name="contratoslaborales_fk2" Association="Self.contratoslaborales_fk2">
+            <End Role="cargos" EntitySet="cargos" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+          <AssociationSet Name="contratoslaborales_fk3" Association="Self.contratoslaborales_fk3">
+            <End Role="tipodocumento" EntitySet="tipodocumento" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pruebatecnicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="pruebatecnicaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="arl" EntityType="pruebatecnicaModel.arl" />
+          <EntitySet Name="cargos" EntityType="pruebatecnicaModel.cargos" />
+          <EntitySet Name="contratoslaborales" EntityType="pruebatecnicaModel.contratoslaborales" />
+          <EntitySet Name="estados" EntityType="pruebatecnicaModel.estados" />
+          <EntitySet Name="novedadesnomina" EntityType="pruebatecnicaModel.novedadesnomina" />
+          <EntitySet Name="tipodocumento" EntityType="pruebatecnicaModel.tipodocumento" />
+          <AssociationSet Name="contratoslaborales_fk1" Association="pruebatecnicaModel.contratoslaborales_fk1">
+            <End Role="arl" EntitySet="arl" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+          <AssociationSet Name="contratoslaborales_fk2" Association="pruebatecnicaModel.contratoslaborales_fk2">
+            <End Role="cargos" EntitySet="cargos" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+          <AssociationSet Name="contratoslaborales_fk" Association="pruebatecnicaModel.contratoslaborales_fk">
+            <End Role="estados" EntitySet="estados" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+          <AssociationSet Name="contratoslaborales_fk3" Association="pruebatecnicaModel.contratoslaborales_fk3">
+            <End Role="tipodocumento" EntitySet="tipodocumento" />
+            <End Role="contratoslaborales" EntitySet="contratoslaborales" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="arl">
+          <Key>
+            <PropertyRef Name="idarl" />
+          </Key>
+          <Property Name="idarl" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="valor" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fechacreacion" Type="DateTime" Precision="6" />
+          <Property Name="habilitado" Type="Boolean" />
+          <NavigationProperty Name="contratoslaborales" Relationship="pruebatecnicaModel.contratoslaborales_fk1" FromRole="arl" ToRole="contratoslaborales" />
+        </EntityType>
+        <EntityType Name="cargos">
+          <Key>
+            <PropertyRef Name="idcargo" />
+          </Key>
+          <Property Name="idcargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fechacreacion" Type="DateTime" Precision="6" />
+          <NavigationProperty Name="contratoslaborales" Relationship="pruebatecnicaModel.contratoslaborales_fk2" FromRole="cargos" ToRole="contratoslaborales" />
+        </EntityType>
+        <EntityType Name="contratoslaborales">
+          <Key>
+            <PropertyRef Name="idcontrato" />
+          </Key>
+          <Property Name="idcontrato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idestado" Type="Int32" />
+          <Property Name="idarl" Type="Int32" />
+          <Property Name="idcargo" Type="Int32" />
+          <Property Name="idtipodocumento" Type="Int32" />
+          <Property Name="numerodocumento" Type="Decimal" Precision="16" Scale="0" />
+          <Property Name="primerapellido" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="segundoapellido" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="primernombre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="segundonombre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fechainicio" Type="DateTime" Precision="0" />
+          <Property Name="fechafin" Type="DateTime" Precision="0" />
+          <Property Name="salario" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fechacreacion" Type="DateTime" Precision="6" />
+          <NavigationProperty Name="arl" Relationship="pruebatecnicaModel.contratoslaborales_fk1" FromRole="contratoslaborales" ToRole="arl" />
+          <NavigationProperty Name="cargos" Relationship="pruebatecnicaModel.contratoslaborales_fk2" FromRole="contratoslaborales" ToRole="cargos" />
+          <NavigationProperty Name="estados" Relationship="pruebatecnicaModel.contratoslaborales_fk" FromRole="contratoslaborales" ToRole="estados" />
+          <NavigationProperty Name="tipodocumento" Relationship="pruebatecnicaModel.contratoslaborales_fk3" FromRole="contratoslaborales" ToRole="tipodocumento" />
+        </EntityType>
+        <EntityType Name="estados">
+          <Key>
+            <PropertyRef Name="idestado" />
+          </Key>
+          <Property Name="idestado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fechacreacion" Type="DateTime" Precision="6" />
+          <NavigationProperty Name="contratoslaborales" Relationship="pruebatecnicaModel.contratoslaborales_fk" FromRole="estados" ToRole="contratoslaborales" />
+        </EntityType>
+        <EntityType Name="novedadesnomina">
+          <Key>
+            <PropertyRef Name="idnovedadnomina" />
+          </Key>
+          <Property Name="idnovedadnomina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="periodolaborado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="horaslaboradas" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="horaextradiurna" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="horaextranocturna" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="horaextradominical" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="horaextrafestiva" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="descuentos" Type="Decimal" Precision="12" Scale="0" />
+          <Property Name="usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fechacreacion" Type="DateTime" Precision="6" />
+        </EntityType>
+        <EntityType Name="tipodocumento">
+          <Key>
+            <PropertyRef Name="idtipodocumento" />
+          </Key>
+          <Property Name="idtipodocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fechacreacion" Type="DateTime" Precision="6" />
+          <NavigationProperty Name="contratoslaborales" Relationship="pruebatecnicaModel.contratoslaborales_fk3" FromRole="tipodocumento" ToRole="contratoslaborales" />
+        </EntityType>
+        <Association Name="contratoslaborales_fk1">
+          <End Type="pruebatecnicaModel.arl" Role="arl" Multiplicity="0..1" />
+          <End Type="pruebatecnicaModel.contratoslaborales" Role="contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="arl">
+              <PropertyRef Name="idarl" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idarl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contratoslaborales_fk2">
+          <End Type="pruebatecnicaModel.cargos" Role="cargos" Multiplicity="0..1" />
+          <End Type="pruebatecnicaModel.contratoslaborales" Role="contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cargos">
+              <PropertyRef Name="idcargo" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idcargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contratoslaborales_fk">
+          <End Type="pruebatecnicaModel.estados" Role="estados" Multiplicity="0..1" />
+          <End Type="pruebatecnicaModel.contratoslaborales" Role="contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estados">
+              <PropertyRef Name="idestado" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idestado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="contratoslaborales_fk3">
+          <End Type="pruebatecnicaModel.tipodocumento" Role="tipodocumento" Multiplicity="0..1" />
+          <End Type="pruebatecnicaModel.contratoslaborales" Role="contratoslaborales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipodocumento">
+              <PropertyRef Name="idtipodocumento" />
+            </Principal>
+            <Dependent Role="contratoslaborales">
+              <PropertyRef Name="idtipodocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pruebatecnicaModelStoreContainer" CdmEntityContainer="pruebatecnicaEntities">
+          <EntitySetMapping Name="arl">
+            <EntityTypeMapping TypeName="pruebatecnicaModel.arl">
+              <MappingFragment StoreEntitySet="arl">
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+                <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="idarl" ColumnName="idarl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cargos">
+            <EntityTypeMapping TypeName="pruebatecnicaModel.cargos">
+              <MappingFragment StoreEntitySet="cargos">
+                <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+                <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idcargo" ColumnName="idcargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contratoslaborales">
+            <EntityTypeMapping TypeName="pruebatecnicaModel.contratoslaborales">
+              <MappingFragment StoreEntitySet="contratoslaborales">
+                <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+                <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="fechafin" ColumnName="fechafin" />
+                <ScalarProperty Name="fechainicio" ColumnName="fechainicio" />
+                <ScalarProperty Name="segundonombre" ColumnName="segundonombre" />
+                <ScalarProperty Name="primernombre" ColumnName="primernombre" />
+                <ScalarProperty Name="segundoapellido" ColumnName="segundoapellido" />
+                <ScalarProperty Name="primerapellido" ColumnName="primerapellido" />
+                <ScalarProperty Name="numerodocumento" ColumnName="numerodocumento" />
+                <ScalarProperty Name="idtipodocumento" ColumnName="idtipodocumento" />
+                <ScalarProperty Name="idcargo" ColumnName="idcargo" />
+                <ScalarProperty Name="idarl" ColumnName="idarl" />
+                <ScalarProperty Name="idestado" ColumnName="idestado" />
+                <ScalarProperty Name="idcontrato" ColumnName="idcontrato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estados">
+            <EntityTypeMapping TypeName="pruebatecnicaModel.estados">
+              <MappingFragment StoreEntitySet="estados">
+                <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+                <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idestado" ColumnName="idestado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="novedadesnomina">
+            <EntityTypeMapping TypeName="pruebatecnicaModel.novedadesnomina">
+              <MappingFragment StoreEntitySet="novedadesnomina">
+                <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+                <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+                <ScalarProperty Name="descuentos" ColumnName="descuentos" />
+                <ScalarProperty Name="horaextrafestiva" ColumnName="horaextrafestiva" />
+                <ScalarProperty Name="horaextradominical" ColumnName="horaextradominical" />
+                <ScalarProperty Name="horaextranocturna" ColumnName="horaextranocturna" />
+                <ScalarProperty Name="horaextradiurna" ColumnName="horaextradiurna" />
+                <ScalarProperty Name="horaslaboradas" ColumnName="horaslaboradas" />
+                <ScalarProperty Name="periodolaborado" ColumnName="periodolaborado" />
+                <ScalarProperty Name="idnovedadnomina" ColumnName="idnovedadnomina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipodocumento">
+            <EntityTypeMapping TypeName="pruebatecnicaModel.tipodocumento">
+              <MappingFragment StoreEntitySet="tipodocumento">
+                <ScalarProperty Name="fechacreacion" ColumnName="fechacreacion" />
+                <ScalarProperty Name="usuariocreacion" ColumnName="usuariocreacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idtipodocumento" ColumnName="idtipodocumento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
