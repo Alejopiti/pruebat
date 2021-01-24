@@ -76,11 +76,26 @@
     </div>
 </div>
 <div id="CrearDatosN" hidden="hidden">
-    a.	Periodo Laborado.
-    <input placeholder="Periodo laborado" />
-    b.	Horas Total Laboradas.
-    c.	Horas Extras (Diurnas, Nocturnas, Dominical, Festivas).
-    d.	Descuentos de Nómina.
+    <input class="form-control" id="txtnumerodocumento" placeholder="Número de documento" />
+    <br/>
+    <input class="form-control" id="txtperiodo" placeholder="Periodo laborado" />
+    <br />
+    <input class="form-control" id="txtthoraslaboras" placeholder="Horas total laboradas" type="number" title="Horas total laboradas"/>
+    <br />
+    <input class="form-control" id="txthextradi" placeholder="Horas extras diurnas"/>    
+    <br />
+    <input class="form-control" id="txthextran" placeholder="Horas extras nocturnas"/>    
+    <br />
+    <input class="form-control" id="txthextrado" placeholder="Horas extras dominicales"/>    
+    <br />
+    <input class="form-control" id="txthextraf" placeholder="Horas extras festivas"/>    
+    <br />
+    <input class="form-control" id="txtdescuentosn" type="number" placeholder="Descuentos de nomina" title="Cuanto es el total de descuentos este periodo"/>
+    <br />
+    <i class="btn btn-default glyphicon glyphicon-floppy-saved" onclick="GuardarN()"> Guardar novedad</i>
+    <div id="RespuestaNovedad">
+
+    </div>
 </div>
 <div id="CrearDatosTrabaja" hidden="hidden">
     <input placeholder="Tipo de documento" id="txttipodocumento" />
@@ -113,22 +128,75 @@
     function Mostrar()
     {
         $("#CrearDatosN").show();
+        $("#MostrarDT").hide();
+        $("#CrearDatosTrabaja").hide();
+        $("#ConsultarDatosC").hide();
+        $("#ConsultarPagoN").hide();
     }
     function MostrarDatosT()
     {
         $("#MostrarDT").show();
+        $("#CrearDatosN").hide();
+        $("#CrearDatosTrabaja").hide();
+        $("#ConsultarDatosC").hide();
+        $("#ConsultarPagoN").hide();
     }
     function CrearDatosT()
     {
         $("#CrearDatosTrabaja").show();
+        $("#ConsultarDatosC").hide();
+        $("#ConsultarPagoN").hide();
+        $("#MostrarDT").hide();
+        $("#CrearDatosN").hide();
     }
     function MostrarCalculo()
     {
         $("#ConsultarDatosC").show();
+        $("#ConsultarPagoN").hide();
+        $("#MostrarDT").hide();
+        $("#CrearDatosN").hide();
+        $("#CrearDatosTrabaja").hide();
     }
     function MostrarCalculoPago()
     {
         $("#ConsultarPagoN").show();
+        $("#ConsultarDatosC").hide();
+        $("#MostrarDT").hide();
+        $("#CrearDatosN").hide();
+        $("#CrearDatosTrabaja").hide();
+    }
+    function GuardarN()
+    {
+        var url = "@Url.Action("Novedades", "Home")";
+        var Documento = $("#txtnumerodocumento").val();
+        var periodolaborado = $("#txtperiodo").val();
+        var horaslaboradas = $("#txtthoraslaboras").val();
+        var horaextradiurna = $("#txthextradi").val();
+        var horaextranocturna = $("#txthextran").val();
+        var horaextradominical = $("#txthextrado").val();
+        var horaextrafestiva = $("#txthextraf").val();
+        var descuentos = $("#txtdescuentosn").val();
+        var data = { Documento: Documento, periodolaborado: periodolaborado, horaslaboradas: horaslaboradas, horaextradiurna: horaextradiurna, horaextranocturna: horaextranocturna, horaextradominical: horaextradominical, horaextrafestiva: horaextrafestiva, descuentos: descuentos }
+            $.post(url, data).done(function (data)
+            {
+                if (data.Tipo_Confirmacion)
+                {
+                    document.getElementById("txtnumerodocumento").value = "";
+                    document.getElementById("txtperiodo").value = "";
+                    document.getElementById("txtthoraslaboras").value = "";
+                    document.getElementById("txthextradi").value = "";
+                    document.getElementById("txthextran").value = "";
+                    document.getElementById("txthextrado").value = "";
+                    document.getElementById("txthextraf").value = "";
+                    document.getElementById("txtdescuentosn").value = "";
+
+            }
+                else
+            {
+                    $("#RespuestaNovedad").removeClass("alert alert-success").addClass("alert alert-danger").slideDown(200);
+            }
+                $("#RespuestaNovedad").html(data.Mensaje);
+            });
     }
     function CrearContrato()
     {

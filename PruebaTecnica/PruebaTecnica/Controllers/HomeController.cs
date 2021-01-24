@@ -9,6 +9,7 @@ namespace PruebaTecnica.Controllers
 {
     public class HomeController : Controller
     {
+        
         ApplicationDbContext Entities = new ApplicationDbContext();
         public ActionResult Index()
         {
@@ -74,44 +75,151 @@ namespace PruebaTecnica.Controllers
         }
         public ActionResult ConsultaD(int Documento)
         {
-            var model = new Modelconsulta();
+            var model = new Modelconsulta(); 
+            var mensaje = new List<Mensajes>();
+
             var data = Entities.contratoslaborales.Where(d => d.numerodocumento == Documento).FirstOrDefault();
-            model.Cargo = Entities.cargos.Find(data.idcargo).nombre;
-            model.NombreCompleto = data.primernombre + " " + data.segundonombre + " " + data.primerapellido + " " + data.segundoapellido;
-            model.TipoD = Entities.tipodocumento.Find(data.idtipodocumento).nombre;
-            model.NumeroD = data.numerodocumento.ToString();
-            model.Ncontrato = data.id.ToString();
-            model.salario = data.salario.ToString();
-            model.RiesgoL = data.idarl.ToString();
-            model.FechaIniC = (DateTime)data.fechainicio;
-            model.FechaFinC = (DateTime)data.fechafin;
-            return PartialView(model);
+            try
+            {
+                if (data == null)
+                {
+                    mensaje.Add(new Mensajes { Mensaje = "sin resultados no ay ninguna información con el documento ingresado", Tipo_Confirmacion = false });
+                    return PartialView("_Mensajes", mensaje);
+                }
+                model.Cargo = Entities.cargos.Find(data.idcargo).nombre;
+                model.NombreCompleto = data.primernombre + " " + data.segundonombre + " " + data.primerapellido + " " + data.segundoapellido;
+                model.TipoD = Entities.tipodocumento.Find(data.idtipodocumento).nombre;
+                model.NumeroD = data.numerodocumento.ToString();
+                model.Ncontrato = data.id.ToString();
+                model.salario = data.salario.ToString();
+                model.RiesgoL = data.idarl.ToString();
+                model.FechaIniC = (DateTime)data.fechainicio;
+                model.FechaFinC = (DateTime)data.fechafin;
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                mensaje.Add(new Mensajes { Mensaje = "Se genero el siguiente error: " + ex, Tipo_Confirmacion = false });
+                return PartialView("_Mensajes", mensaje);
+            }
+
         }
         public ActionResult CalcularP(int Documento)
         {
             var data = Entities.contratoslaborales.Where(d => d.numerodocumento == Documento).FirstOrDefault();
             var model = new ModelNomina();
-            double salario = double.Parse(data.salario.ToString());
-            model.Descuento = salario * 0.08;
-            model.Pagar = salario - model.Descuento;
-            model.salario = salario ;
-            return PartialView(model);
-        }
-        //public ActionResult Novedades(string Documento)
-        //{
-        //    var mensaje = new Mensajes();
+            var mensaje = new List<Mensajes>();
 
-        //}
+            try
+            {
+                if (data == null)
+                {
+                    mensaje.Add(new Mensajes { Mensaje = "sin resultados no ay ninguna información con el documento ingresado para calcular", Tipo_Confirmacion = false });
+                    return PartialView("_Mensajes", mensaje);
+                }
+                else
+                {
+                    var otrodescuento = Entities.novedadesnomina.Where(g => g.usuariocreacion == data.usuariocreacion).ToList().LastOrDefault();
+                    double salario = double.Parse(data.salario.ToString());
+                    double odescuentos;
+                    if (otrodescuento == null)
+                    {
+                        model.OtrosDescuento = 0;
+                        odescuentos = 0;
+                    }
+                    else
+                    {
+                        odescuentos = double.Parse(otrodescuento.descuentos.ToString());
+                        model.OtrosDescuento = odescuentos;
+
+                    }
+                    model.Descuento = salario * 0.08;
+                    model.Pagar = salario - model.Descuento - odescuentos;
+                    model.salario = salario;
+                    return PartialView(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje.Add(new Mensajes { Mensaje = "Se genero el siguiente error: " + ex, Tipo_Confirmacion = false });
+                return PartialView("_Mensajes", mensaje);
+            }
+
+        }
+        public ActionResult Novedades(int Documento, novedadesnomina _novedadesn)
+        {
+            var mensaje = new Mensajes();
+            if (Documento <= 0 )
+            {
+                mensaje.Mensaje = "Cual es el documento del colaborador";
+                mensaje.Tipo_Confirmacion = false;
+                return Json(mensaje);
+            }
+            else
+            {
+                var data = Entities.contratoslaborales.Where(d => d.numerodocumento == Documento).FirstOrDefault();
+                if (data == null)
+                {
+                    mensaje.Mensaje = "Error no existe la persona con el documento ingreado";
+                    mensaje.Tipo_Confirmacion = false;
+                    return Json(mensaje);
+                }
+                else
+                {
+                    if (_novedadesn.periodolaborado == "")
+                    {
+                        mensaje.Mensaje = "Cual es el periodo laborado";
+                        mensaje.Tipo_Confirmacion = false;
+                        return Json(mensaje);
+                    }
+                    else if (_novedadesn.horaslaboradas == 0)
+                    {
+                        mensaje.Mensaje = "Cuantas son las horas laboradas";
+                        mensaje.Tipo_Confirmacion = false;
+                        return Json(mensaje);
+                    }
+                    else
+                    {
+                        _novedadesn.usuariocreacion = data.usuariocreacion;
+                        _novedadesn.fechacreacion = DateTime.Now;
+                        Entities.novedadesnomina.Add(_novedadesn);
+                        Entities.SaveChanges();
+                        mensaje.Mensaje = "Se guardo correctamente las novedades de nomina";
+                        mensaje.Tipo_Confirmacion = true;
+                        return Json(mensaje);
+                    }    
+                }
+            }
+        }
         public ActionResult CalcularD(int Documento)
         {
             var model = new ModelCalculo();
+            var mensaje = new List<Mensajes>();
+
             var data = Entities.contratoslaborales.Where(d => d.numerodocumento == Documento).FirstOrDefault();
-            double salario = double.Parse(data.salario.ToString());
-            model.PorempleadorSalud = salario * 0.125;
-            model.PorempleadorPension = salario * 0.16;
-            model.PortrabajadorSalud = salario * 0.04;
-            model.PortrabajadorPension = salario * 0.04;
-            return PartialView("_CalculosAportesS", model);
+            try
+            {
+                if (data == null)
+                {
+                    mensaje.Add(new Mensajes { Mensaje = "sin resultados no ay ninguna información con el documento ingresado para calcular", Tipo_Confirmacion = false });
+                    return PartialView("_Mensajes", mensaje);
+                }
+                else
+                {
+                    double salario = double.Parse(data.salario.ToString());
+                    model.PorempleadorSalud = salario * 0.125;
+                    model.PorempleadorPension = salario * 0.16;
+                    model.PortrabajadorSalud = salario * 0.04;
+                    model.PortrabajadorPension = salario * 0.04;
+                    return PartialView("_CalculosAportesS", model);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje.Add(new Mensajes { Mensaje = "Se genero el siguiente error: " + ex, Tipo_Confirmacion = false });
+                return PartialView("_Mensajes", mensaje);
+}
         }
     }
     public class Mensajes
@@ -142,6 +250,7 @@ namespace PruebaTecnica.Controllers
     {
         public double Pagar { get; set; }
         public double Descuento { get; set; }
+        public double OtrosDescuento { get; set; }
         public double salario { get; set; }
     }
 }
