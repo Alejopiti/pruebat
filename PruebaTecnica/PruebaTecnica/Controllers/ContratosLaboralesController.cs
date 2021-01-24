@@ -44,7 +44,7 @@ namespace PruebaTecnica.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != contratoslaborales.idcontrato)
+            if (id != contratoslaborales.id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace PruebaTecnica.Controllers
             db.contratoslaborales.Add(contratoslaborales);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = contratoslaborales.idcontrato }, contratoslaborales);
+            return CreatedAtRoute("DefaultApi", new { id = contratoslaborales.id }, contratoslaborales);
         }
 
         // DELETE: api/ContratosLaborales/5
@@ -112,7 +112,7 @@ namespace PruebaTecnica.Controllers
 
         private bool contratoslaboralesExists(int id)
         {
-            return db.contratoslaborales.Count(e => e.idcontrato == id) > 0;
+            return db.contratoslaborales.Count(e => e.id == id) > 0;
         }
     }
 }

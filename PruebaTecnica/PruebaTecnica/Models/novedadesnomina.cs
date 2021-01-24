@@ -14,7 +14,7 @@ namespace PruebaTecnica.Models
     
     public partial class novedadesnomina
     {
-        public int idnovedadnomina { get; set; }
+        public int id { get; set; }
         public string periodolaborado { get; set; }
         public Nullable<decimal> horaslaboradas { get; set; }
         public Nullable<decimal> horaextradiurna { get; set; }

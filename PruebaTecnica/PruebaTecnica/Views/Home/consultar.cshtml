@@ -5,48 +5,102 @@
 <br />
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
-<i onclick="MostrarDatosT()" class="btn btn-default">Ingresar datos del trabajado</i>
-<i onclick="Mostrar()" class="btn btn-default">Ingresar datos de nomina</i>
-@using (Ajax.BeginForm("ConsultaD", "Home", null, new AjaxOptions()
-{
-    HttpMethod = "GET",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "Resultados",
+<i>Mi cedula de prueba 1033773736 y 123456789</i>
+<br />
+@*<i onclick="CrearDatosT()" class="btn btn-default">Ingresar datos del trabajador</i>*@
+<i onclick="MostrarDatosT()" class="btn btn-default">Punto 1</i>
+<i onclick="Mostrar()" class="btn btn-default">Punto 2</i>
+<i onclick="MostrarCalculo()" class="btn btn-default">Punto 3</i>
+<i onclick="MostrarCalculoPago()" class="btn btn-default">Punto 4</i>
+<div id="MostrarDT" hidden="hidden">
+    @using (Ajax.BeginForm("ConsultaD", "Home", null, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Resultados",
 
 
-}, new { id = "formconsulta" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="lead">
-        <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
-        <br />
-        <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+    }, new { id = "formconsulta" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="lead">
+            <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
+            <br />
+            <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+        </div>
+    }
+    <div id="Resultados">
+
     </div>
-}
+</div>
+<div id="ConsultarDatosC" hidden="hidden">
+    @using (Ajax.BeginForm("CalcularD", "Home", null, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "ResultadosCalculo",
+
+
+    }, new { id = "formconsulta" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="lead">
+            <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
+            <br />
+            <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+        </div>
+    }
+    <div id="ResultadosCalculo">
+
+    </div>
+</div>
+<div id="ConsultarPagoN" hidden="hidden">
+    @using (Ajax.BeginForm("CalcularP", "Home", null, new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "ResultadosCalculoNomina",
+
+
+    }, new { id = "formconsulta" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="lead">
+            <input class="form-control text-center" placeholder="Ingrese el documento" type="text" name="Documento" id="txtdocumento" />
+            <br />
+            <button type="submit" class="glyphicon glyphicon-search btn btn-default" style="background-color:red; color:white"> Buscar</button>
+        </div>
+    }
+    <div id="ResultadosCalculoNomina">
+
+    </div>
+</div>
 <div id="CrearDatosN" hidden="hidden">
     a.	Periodo Laborado.
+    <input placeholder="Periodo laborado" />
     b.	Horas Total Laboradas.
     c.	Horas Extras (Diurnas, Nocturnas, Dominical, Festivas).
     d.	Descuentos de Nómina.
 </div>
 <div id="CrearDatosTrabaja" hidden="hidden">
-    <input placeholder="Tipo de documento" id="txttipodocumento"/>
+    <input placeholder="Tipo de documento" id="txttipodocumento" />
     <br />
-    <input placeholder="Documento" id="txtndocumento"/>
+    <input placeholder="Documento" id="txtndocumento" />
     <br />
-    <input placeholder="Primer apellido" id="txtprimerapellido"/><br />
-    <input placeholder="Segundo apellido" id="txtsegundoapellido"/><br />
-    <input placeholder="Primer nombre" id="txtprimernombre"/><br />
-    <input placeholder="Segundo nombre" id="txtsegundonombre"/><br />
-    <input placeholder="Usuario" id="txtusuariocreacion"/><br />
-    <input placeholder="salario" id="txtsalario"/><br />
-    
+    <input placeholder="Primer apellido" id="txtprimerapellido" /><br />
+    <input placeholder="Segundo apellido" id="txtsegundoapellido" /><br />
+    <input placeholder="Primer nombre" id="txtprimernombre" /><br />
+    <input placeholder="Segundo nombre" id="txtsegundonombre" /><br />
+    <input placeholder="Usuario" id="txtusuariocreacion" /><br />
+    <input placeholder="salario" id="txtsalario" /><br />
+
     <i class="btn btn-default" onclick="CrearContrato()">Crear</i>
-    <span id="RespuestaCrearC"></span>
-</div>
-<div id="Resultados">
 
 </div>
+<div id="RespuestaCrearC">
+
+</div>
+
 @section Scripts
 {
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -55,30 +109,43 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 }
 <script>
+
     function Mostrar()
     {
         $("#CrearDatosN").show();
     }
     function MostrarDatosT()
     {
+        $("#MostrarDT").show();
+    }
+    function CrearDatosT()
+    {
         $("#CrearDatosTrabaja").show();
+    }
+    function MostrarCalculo()
+    {
+        $("#ConsultarDatosC").show();
+    }
+    function MostrarCalculoPago()
+    {
+        $("#ConsultarPagoN").show();
     }
     function CrearContrato()
     {
         var url = "@Url.Action("CrearContrato", "Home")";
-        var salario = $("#txtsalario").val();
+        var TipoD = $("#txttipodocumento").val();
         var numerodocumento = $("#txtndocumento").val();
         var primerapellido = $("#txtprimerapellido").val();
         var segundoapellido = $("#txtsegundoapellido").val();
         var primernombre = $("#txtprimernombre").val();
         var segundonombre = $("#txtsegundonombre").val();
-        var usuariocreacion = $("#txtsegundonombre").val();
-        var data = { salario: salario, numerodocumento: numerodocumento, primerapellido: primerapellido, segundoapellido: segundoapellido, primernombre: primernombre, segundonombre: segundonombre, usuariocreacion: usuariocreacion }
+        var usuariocreacion = $("#txtusuariocreacion").val();
+        var salario = $("#txtsalario").val();
+         var data = { salario: salario, numerodocumento: numerodocumento, primerapellido: primerapellido, segundoapellido: segundoapellido, primernombre: primernombre, segundonombre: segundonombre, usuariocreacion: usuariocreacion, TipoD: TipoD }
             $.post(url, data).done(function (data)
             {
                 if (data.Tipo_Confirmacion)
             {
-                document.getElementById("txtnbeneficios").value = "";
                     $("#RespuestaCrearC").removeClass("alert alert-danger").addClass("alert alert-success").slideDown(200);
             }
                 else

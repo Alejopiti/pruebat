@@ -14,7 +14,7 @@ namespace PruebaTecnica.Models
     
     public partial class contratoslaborales
     {
-        public int idcontrato { get; set; }
+        public int id { get; set; }
         public Nullable<int> idestado { get; set; }
         public Nullable<int> idarl { get; set; }
         public Nullable<int> idcargo { get; set; }

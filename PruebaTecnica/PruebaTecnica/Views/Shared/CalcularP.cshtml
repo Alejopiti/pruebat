@@ -1,0 +1,12 @@
+﻿@model PruebaTecnica.Controllers.ModelNomina
+@{
+    ViewBag.Title = "Calculo a pagar nomina ";
+}
+<br />
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="lead">
+    <p>Salario @String.Format("{0:c0}", Model.salario)</p>
+    <p>Descuento @String.Format("{0:c0}", Model.Descuento)</p>
+    <p>Valor a pagar  @String.Format("{0:c0}", Model.Pagar)</p>
+</div>

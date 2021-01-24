@@ -1,10 +1,10 @@
 ﻿@model PruebaTecnica.Controllers.Modelconsulta
 @{
-    ViewBag.Title = "ConsultarDatos";
+    ViewBag.Title = "Consultar datos colaborador";
 }
 <br />
 <h2>@ViewBag.Title</h2>
-<table>
+<table class="table table-bordered table-striped">
     <tr>
         <th>Tipo de Documento</th>
         <th>Número de Documento</th>
@@ -25,7 +25,7 @@
         <td>@Model.RiesgoL</td>
         <td>@Model.FechaIniC</td>
         <td>@Model.FechaFinC</td>
-        <td>@Model.salario</td>
+        <td>@String.Format("{0:c0}", Model.salario)</td>
     </tr>
 
 </table>

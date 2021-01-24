@@ -173,6 +173,8 @@ C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\bin\Microsoft.Owin.Security.O
 C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\obj\Debug\PruebaTecnica.Migrations.MigraciónInicial.resources
+C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\obj\Debug\PruebaTecnica.csproj.GenerateResource.cache
 C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\obj\Debug\PruebaTecnica.csproj.CoreCompileInputs.cache
 C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\obj\Debug\PruebaTecnica.csproj.CopyComplete
 C:\Users\Alejo\Desktop\PruebaTecnica\PruebaTecnica\obj\Debug\PruebaTecnica.dll

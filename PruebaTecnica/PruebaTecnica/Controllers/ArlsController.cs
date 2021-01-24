@@ -44,7 +44,7 @@ namespace PruebaTecnica.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != arl.idarl)
+            if (id != arl.id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace PruebaTecnica.Controllers
             db.arl.Add(arl);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = arl.idarl }, arl);
+            return CreatedAtRoute("DefaultApi", new { id = arl.id }, arl);
         }
 
         // DELETE: api/Arls/5
@@ -112,7 +112,7 @@ namespace PruebaTecnica.Controllers
 
         private bool arlExists(int id)
         {
-            return db.arl.Count(e => e.idarl == id) > 0;
+            return db.arl.Count(e => e.id == id) > 0;
         }
     }
 }

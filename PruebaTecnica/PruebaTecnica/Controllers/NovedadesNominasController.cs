@@ -44,7 +44,7 @@ namespace PruebaTecnica.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != novedadesnomina.idnovedadnomina)
+            if (id != novedadesnomina.id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace PruebaTecnica.Controllers
             db.novedadesnomina.Add(novedadesnomina);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = novedadesnomina.idnovedadnomina }, novedadesnomina);
+            return CreatedAtRoute("DefaultApi", new { id = novedadesnomina.id }, novedadesnomina);
         }
 
         // DELETE: api/NovedadesNominas/5
@@ -112,7 +112,7 @@ namespace PruebaTecnica.Controllers
 
         private bool novedadesnominaExists(int id)
         {
-            return db.novedadesnomina.Count(e => e.idnovedadnomina == id) > 0;
+            return db.novedadesnomina.Count(e => e.id == id) > 0;
         }
     }
 }

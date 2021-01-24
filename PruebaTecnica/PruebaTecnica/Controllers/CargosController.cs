@@ -44,7 +44,7 @@ namespace PruebaTecnica.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != cargos.idcargo)
+            if (id != cargos.id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace PruebaTecnica.Controllers
             db.cargos.Add(cargos);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = cargos.idcargo }, cargos);
+            return CreatedAtRoute("DefaultApi", new { id = cargos.id }, cargos);
         }
 
         // DELETE: api/Cargos/5
@@ -112,7 +112,7 @@ namespace PruebaTecnica.Controllers
 
         private bool cargosExists(int id)
         {
-            return db.cargos.Count(e => e.idcargo == id) > 0;
+            return db.cargos.Count(e => e.id == id) > 0;
         }
     }
 }

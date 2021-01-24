@@ -44,7 +44,7 @@ namespace PruebaTecnica.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != tipodocumento.idtipodocumento)
+            if (id != tipodocumento.id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace PruebaTecnica.Controllers
             db.tipodocumento.Add(tipodocumento);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = tipodocumento.idtipodocumento }, tipodocumento);
+            return CreatedAtRoute("DefaultApi", new { id = tipodocumento.id }, tipodocumento);
         }
 
         // DELETE: api/TipoDocumentos/5
@@ -112,7 +112,7 @@ namespace PruebaTecnica.Controllers
 
         private bool tipodocumentoExists(int id)
         {
-            return db.tipodocumento.Count(e => e.idtipodocumento == id) > 0;
+            return db.tipodocumento.Count(e => e.id == id) > 0;
         }
     }
 }

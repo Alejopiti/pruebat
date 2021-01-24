@@ -44,7 +44,7 @@ namespace PruebaTecnica.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != estados.idestado)
+            if (id != estados.id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace PruebaTecnica.Controllers
             db.estados.Add(estados);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = estados.idestado }, estados);
+            return CreatedAtRoute("DefaultApi", new { id = estados.id }, estados);
         }
 
         // DELETE: api/Estados/5
@@ -112,7 +112,7 @@ namespace PruebaTecnica.Controllers
 
         private bool estadosExists(int id)
         {
-            return db.estados.Count(e => e.idestado == id) > 0;
+            return db.estados.Count(e => e.id == id) > 0;
         }
     }
 }

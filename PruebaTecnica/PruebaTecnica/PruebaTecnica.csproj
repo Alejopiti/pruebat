@@ -231,6 +231,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101232338273_MigraciónInicial.cs" />
+    <Compile Include="Migrations\202101232338273_MigraciónInicial.Designer.cs">
+      <DependentUpon>202101232338273_MigraciónInicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\arl.cs">
       <DependentUpon>PruebaTecnicaModel.tt</DependentUpon>
@@ -351,6 +356,8 @@
     <Content Include="Views\Home\consultar.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Home\ConsultaD.cshtml" />
+    <Content Include="Views\Shared\_CalculosAportesS.cshtml" />
+    <Content Include="Views\Shared\CalcularP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -365,6 +372,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202101232338273_MigraciónInicial.resx">
+      <DependentUpon>202101232338273_MigraciónInicial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

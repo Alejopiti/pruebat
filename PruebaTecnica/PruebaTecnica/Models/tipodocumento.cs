@@ -20,7 +20,7 @@ namespace PruebaTecnica.Models
             this.contratoslaborales = new HashSet<contratoslaborales>();
         }
     
-        public int idtipodocumento { get; set; }
+        public int id { get; set; }
         public string nombre { get; set; }
         public string usuariocreacion { get; set; }
         public Nullable<System.DateTime> fechacreacion { get; set; }

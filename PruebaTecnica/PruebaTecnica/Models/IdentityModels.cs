@@ -29,5 +29,12 @@ namespace PruebaTecnica.Models
         {
             return new ApplicationDbContext();
         }
+        public virtual DbSet<arl> arl { get; set; }
+        public virtual DbSet<cargos> cargos { get; set; }
+        public virtual DbSet<contratoslaborales> contratoslaborales { get; set; }
+        public virtual DbSet<estados> estados { get; set; }
+        public virtual DbSet<novedadesnomina> novedadesnomina { get; set; }
+        public virtual DbSet<tipodocumento> tipodocumento { get; set; }
+
     }
 }
